@@ -26,20 +26,20 @@
             val: '$m4'
         });
 
-        var m1 = modules.load('module1');
+        var m1 = modules.get('module1');
 
         strictEqual(m1.val, '$m1');
         ok(m1Initialized);
         ok(!m2Initialized);
         ok(!m3Initialized);
 
-        var m2 = modules.load('module2');
+        var m2 = modules.get('module2');
 
         strictEqual(m2.val, '$m2$m3');
         ok(m2Initialized);
         ok(m3Initialized);
 
-        var m4 = modules.load('module4');
+        var m4 = modules.get('module4');
 
         strictEqual(m4.val, '$m4');
     });
@@ -59,13 +59,13 @@
             exports.val = 'Yo!';
         });
 
-        modules.load('module1');
+        modules.get('module1');
 
         strictEqual(m1Loads, 1);
         strictEqual(m2Loads, 1);
 
-        modules.load('module1');
-        modules.load('module2');
+        modules.get('module1');
+        modules.get('module2');
 
         strictEqual(m1Loads, 1);
         strictEqual(m2Loads, 1);
@@ -91,7 +91,7 @@
         var modules = new Mods();
 
         try {
-            modules.load('someModule');
+            modules.get('someModule');
         } catch (err) {
             strictEqual(err.message, 'Mods: required "someModule" is undefined');
         }
@@ -113,7 +113,7 @@
         });
 
         try {
-            modules.load('module1');
+            modules.get('module1');
         } catch (err) {
             strictEqual(err.message, 'Mods: circular dependency: "module1" -> "module2" -> "module3" -> "module1"');
         }
@@ -132,7 +132,7 @@
             require('module1');
         });
 
-        var m1 = modules.load('module1');
+        var m1 = modules.get('module1');
 
         try {
             m1.oops();

@@ -64,7 +64,7 @@
                 modules[id] = mod;
             },
 
-            load: function (id) {
+            get: function (id) {
                 return createRequireFunc(modules, [])(id);
             }
         };
