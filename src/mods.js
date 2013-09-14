@@ -30,7 +30,7 @@
                 hasCircularDependencies = hasCircularDependencies || stack[i] === id;
 
                 if (hasCircularDependencies)
-                    hasCircularDependencies && (errMsg += quote(stack[i]) + ' -> ');
+                    errMsg += quote(stack[i]) + ' -> ';
             }
 
             if (hasCircularDependencies)
