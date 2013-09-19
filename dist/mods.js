@@ -8,7 +8,7 @@
         throw Error('Mods' + ': ' + msg);
     }
 
-    var createRequireFunc = function (modules, stack) {
+    function createRequireFunc(modules, stack) {
         return function (id) {
             var mod = modules[id];
 
@@ -43,7 +43,7 @@
 
             return mod;
         };
-    };
+    }
 
     this.Mods = function () {
         var modules = {};
