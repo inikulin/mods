@@ -1,19 +1,6 @@
 (function (undefined) {
-    var MODS = 'Mods';
-
     function err(msg) {
-        throw Error(MODS + ': ' + msg);
-    }
-
-    function quote(text) {
-        return '"' + text + '"';
-    }
-
-    function hasProps(obj) {
-        for (var key in obj) {
-            if (obj.hasOwnProperty(key))
-                return true;
-        }
+        throw Error('Mods' + ': ' + msg);
     }
 
     var createRequireFunc = function (modules, stack) {
@@ -21,7 +8,7 @@
             var mod = modules[id];
 
             if (!mod)
-                err('required ' + quote(id) + ' is undefined');
+                err('required "' + id + '" is undefined');
 
             var errMsg = '',
                 hasCircularDependencies = false;
@@ -30,21 +17,21 @@
                 hasCircularDependencies = hasCircularDependencies || stack[i] === id;
 
                 if (hasCircularDependencies)
-                    errMsg += quote(stack[i]) + ' -> ';
+                    errMsg += '"' + stack[i] + '" -> ';
             }
 
             if (hasCircularDependencies)
-                err('circular dependency: ' + errMsg + quote(id));
+                err('circular dependency: ' + errMsg + '"' + id + '"');
 
             stack.push(id);
 
             if (typeof mod === 'function') {
-                var exports = {};
+                var exports = {'.': 1};
 
                 mod(createRequireFunc(modules, stack), exports);
 
-                if (!hasProps(exports))
-                    err(quote(id) + ' has no exports ("exports = ..." used?) ');
+                if (!exports['.'])
+                    err('"' + id + '": "exports = ..." assignment used) ');
 
                 mod = modules[id] = exports;
             }
@@ -53,13 +40,13 @@
         };
     };
 
-    this[MODS] = function () {
+    this.Mods = function () {
         var modules = {};
 
         return {
             define: function (id, mod) {
                 if (modules[id])
-                    err(quote(id) + ' is already defined');
+                    err('"' + id + '" is already defined');
 
                 modules[id] = mod;
             },
