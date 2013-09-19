@@ -58,7 +58,7 @@
         };
     };
 
-    window[MODS] = function () {
+    this[MODS] = function () {
         var modules = {};
 
         return {
