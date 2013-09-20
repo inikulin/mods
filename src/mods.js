@@ -1,4 +1,6 @@
-(function (undefined) {
+this.Mods = function () {
+    var modules = {};
+
     function err(msg) {
         throw Error('Mods' + ': ' + msg);
     }
@@ -40,20 +42,16 @@
         };
     }
 
-    this.Mods = function () {
-        var modules = {};
+    return {
+        define: function (id, mod) {
+            if (modules[id])
+                err('"' + id + '" is already defined');
 
-        return {
-            define: function (id, mod) {
-                if (modules[id])
-                    err('"' + id + '" is already defined');
+            modules[id] = mod;
+        },
 
-                modules[id] = mod;
-            },
-
-            get: function (id) {
-                return createRequireFunc(modules, [])(id);
-            }
-        };
+        get: function (id) {
+            return createRequireFunc(modules, [])(id);
+        }
     };
-})();
+};
