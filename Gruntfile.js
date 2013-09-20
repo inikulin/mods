@@ -14,9 +14,6 @@ module.exports = function (grunt) {
                 ' Released under the MIT license\n ' +
                 '*/\n',
 
-        minBanner: '/*<%= pkg.site %>*/',
-
-
         // Task configuration.
         clean: {
             files: ['dist']
@@ -34,9 +31,6 @@ module.exports = function (grunt) {
         },
 
         uglify: {
-            options: {
-                banner: '<%= minBanner %>'
-            },
             dist: {
                 src: '<%= concat.dist.dest %>',
                 dest: 'dist/<%= pkg.name %>.min.js'
