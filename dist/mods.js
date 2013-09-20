@@ -3,39 +3,39 @@
  Copyright (c) 2013 Ivan Nikulin (ifaaan@gmail.com, https://github.com/inikulin)
  Released under the MIT license
  */
-this.Mods = function () {
+Mods = function () {
     var modules = {};
 
     function err(msg) {
         throw Error('Mods' + ': ' + msg);
     }
 
-    function createRequireFunc(modules, stack) {
+    function createRequireFunc(stack) {
         return function (id) {
-            var mod = modules[id];
+            var mod = modules[id],
+                circularDependencyErr,
+                i = 0;
 
             if (!mod)
                 err('required "' + id + '" is undefined');
 
-            var errMsg = '',
-                hasCircularDependencies = false;
+            for (; i < stack.length; i++) {
+                if (stack[i] == id)
+                    circularDependencyErr = 'circular dependency: ';
 
-            for (var i = 0; i < stack.length; i++) {
-                hasCircularDependencies = hasCircularDependencies || stack[i] === id;
-
-                if (hasCircularDependencies)
-                    errMsg += '"' + stack[i] + '" -> ';
+                if (circularDependencyErr)
+                    circularDependencyErr += '"' + stack[i] + '" -> ';
             }
 
-            if (hasCircularDependencies)
-                err('circular dependency: ' + errMsg + '"' + id + '"');
+            if (circularDependencyErr)
+                err(circularDependencyErr + '"' + id + '"');
 
-            stack.push(id);
+            stack[i] = id;
 
-            if (typeof mod === 'function') {
+            if (typeof mod == 'function') {
                 var exports = {'.': 1};
 
-                mod(createRequireFunc(modules, stack), exports);
+                mod(createRequireFunc(stack), exports);
 
                 if (!exports['.'])
                     err('"' + id + '": "exports = ..." assignment used) ');
@@ -56,7 +56,7 @@ this.Mods = function () {
         },
 
         get: function (id) {
-            return createRequireFunc(modules, [])(id);
+            return createRequireFunc([])(id);
         }
     };
 };
