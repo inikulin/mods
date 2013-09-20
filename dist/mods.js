@@ -13,6 +13,7 @@ Mods = function () {
     function createRequireFunc(stack) {
         return function (id) {
             var mod = modules[id],
+                exports = {'.': 1},
                 circularDependencyErr,
                 i = 0;
 
@@ -33,8 +34,6 @@ Mods = function () {
             stack[i] = id;
 
             if (typeof mod == 'function') {
-                var exports = {'.': 1};
-
                 mod(createRequireFunc(stack), exports);
 
                 if (!exports['.'])
