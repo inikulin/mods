@@ -2,13 +2,13 @@ Mods = function () {
     var modules = {};
 
     function err(msg) {
-        throw Error('Mods' + ': ' + msg);
+        throw Error('Mods: ' + msg);
     }
 
     function createRequireFunc(stack) {
         return function (id) {
             var mod = modules[id],
-                exports = {'.': 1},
+                exports = {},
                 circularDependencyErr,
                 i = 0;
 
@@ -30,10 +30,6 @@ Mods = function () {
 
             if (typeof mod == 'function') {
                 mod(createRequireFunc(stack), exports);
-
-                if (!exports['.'])
-                    err('"' + id + '": "exports = ..." assignment used) ');
-
                 mod = modules[id] = exports;
             }
 
