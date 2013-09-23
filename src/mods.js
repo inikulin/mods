@@ -1,5 +1,6 @@
 Mods = function () {
-    var modules = {};
+    var EXPORTS = 'exports',
+        modules = {};
 
     function err(msg) {
         throw Error('Mods: ' + msg);
@@ -8,7 +9,6 @@ Mods = function () {
     function createRequireFunc(stack) {
         return function (id) {
             var mod = modules[id],
-                exports = {},
                 circularDependencyErr,
                 i = 0;
 
@@ -29,8 +29,9 @@ Mods = function () {
             stack[i] = id;
 
             if (typeof mod == 'function') {
-                mod(createRequireFunc(stack), exports);
-                mod = modules[id] = exports;
+                mod[EXPORTS] = {};
+                mod.call(mod, createRequireFunc(stack), mod[EXPORTS]);
+                mod = modules[id] = mod[EXPORTS];
             }
 
             return mod;

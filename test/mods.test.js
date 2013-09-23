@@ -13,12 +13,12 @@
         modules.define('module2', function (require, exports) {
             var m3 = require('module3');
 
-            exports.val = '$m2' + m3.val;
+            exports.val = '$m2' + m3;
             m2Initialized = true;
         });
 
         modules.define('module3', function (require, exports) {
-            exports.val = '$m3';
+            this.exports = '$m3';
             m3Initialized = true;
         });
 

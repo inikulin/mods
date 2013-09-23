@@ -13,7 +13,7 @@ Mods = function () {
     function createRequireFunc(stack) {
         return function (id) {
             var mod = modules[id],
-                exports = {},
+                exportsStr = 'exports',
                 circularDependencyErr,
                 i = 0;
 
@@ -34,8 +34,9 @@ Mods = function () {
             stack[i] = id;
 
             if (typeof mod == 'function') {
-                mod(createRequireFunc(stack), exports);
-                mod = modules[id] = exports;
+                mod[exportsStr] = {};
+                mod.call(mod, createRequireFunc(stack), mod[exportsStr]);
+                mod = modules[id] = mod[exportsStr];
             }
 
             return mod;
