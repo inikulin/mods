@@ -1,5 +1,5 @@
 Mods = function () {
-    var EXPORTS = 'exports',
+    var exportsPropName = 'exports',
         modules = {};
 
     function err(msg) {
@@ -29,9 +29,9 @@ Mods = function () {
             stack[i] = id;
 
             if (typeof mod == 'function') {
-                mod[EXPORTS] = {};
-                mod.call(mod, createRequireFunc(stack), mod[EXPORTS]);
-                mod = modules[id] = mod[EXPORTS];
+                mod[exportsPropName] = {};
+                mod.call(mod, createRequireFunc(stack), mod[exportsPropName]);
+                mod = modules[id] = mod[exportsPropName];
             }
 
             return mod;
@@ -42,6 +42,13 @@ Mods = function () {
         define: function (id, mod) {
             if (modules[id])
                 err('"' + id + '" is already defined');
+
+            modules[id] = mod;
+        },
+
+        mock: function (id, mod) {
+            if (!modules[id])
+                err('mocked "' + id + '" is undefined');
 
             modules[id] = mod;
         },

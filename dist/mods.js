@@ -4,7 +4,8 @@
  Released under the MIT license
  */
 Mods = function () {
-    var modules = {};
+    var EXPORTS = 'exports',
+        modules = {};
 
     function err(msg) {
         throw Error('Mods: ' + msg);
@@ -13,7 +14,6 @@ Mods = function () {
     function createRequireFunc(stack) {
         return function (id) {
             var mod = modules[id],
-                exportsStr = 'exports',
                 circularDependencyErr,
                 i = 0;
 
@@ -34,9 +34,9 @@ Mods = function () {
             stack[i] = id;
 
             if (typeof mod == 'function') {
-                mod[exportsStr] = {};
-                mod.call(mod, createRequireFunc(stack), mod[exportsStr]);
-                mod = modules[id] = mod[exportsStr];
+                mod[EXPORTS] = {};
+                mod.call(mod, createRequireFunc(stack), mod[EXPORTS]);
+                mod = modules[id] = mod[EXPORTS];
             }
 
             return mod;
@@ -47,6 +47,13 @@ Mods = function () {
         define: function (id, mod) {
             if (modules[id])
                 err('"' + id + '" is already defined');
+
+            modules[id] = mod;
+        },
+
+        mock: function (id, mod) {
+            if (!modules[id])
+                err('mocked "' + id + '" is undefined');
 
             modules[id] = mod;
         },

@@ -46,48 +46,80 @@
 
     test('Module should be loaded only once', function () {
         var modules = new Mods(),
-            m1Loads = 0,
-            m2Loads = 0;
+            m1LoadCount = 0,
+            m2LoadCount = 0;
 
         modules.define('module1', function (require, exports) {
-            m1Loads++;
+            m1LoadCount++;
             exports.val = require('module2').val;
         });
 
         modules.define('module2', function (require, exports) {
-            m2Loads++;
+            m2LoadCount++;
             exports.val = 'Yo!';
         });
 
         modules.get('module1');
 
-        strictEqual(m1Loads, 1);
-        strictEqual(m2Loads, 1);
+        strictEqual(m1LoadCount, 1);
+        strictEqual(m2LoadCount, 1);
 
         modules.get('module1');
         modules.get('module2');
 
-        strictEqual(m1Loads, 1);
-        strictEqual(m2Loads, 1);
+        strictEqual(m1LoadCount, 1);
+        strictEqual(m2LoadCount, 1);
     });
 
-    test('Module redefinition', function () {
+    test('Mock', function () {
         var modules = new Mods();
 
         modules.define('theAnswer', function () {
-            return '42';
+            this.exports = null;
+        });
+
+        modules.mock('theAnswer', function () {
+            this.exports = '32';
+        });
+
+        strictEqual(modules.get('theAnswer'), '32');
+    });
+
+    test('Module redefinition', function () {
+        expect(1);
+
+        var modules = new Mods();
+
+        modules.define('theAnswer', function () {
+            this.exports = '42';
         });
 
         try {
             modules.define('theAnswer', function () {
-                return null;
+                this.exports = null;
             });
         } catch (err) {
             strictEqual(err.message, 'Mods: "theAnswer" is already defined');
         }
     });
 
+    test('Mock undefined module', function () {
+        expect(1);
+
+        var modules = new Mods();
+
+        try {
+            modules.mock('nothing', function () {
+                this.exports = 'Hey ya';
+            });
+        } catch (err) {
+            strictEqual(err.message, 'Mods: mocked "nothing" is undefined')
+        }
+    });
+
     test('Required module is undefined', function () {
+        expect(1);
+
         var modules = new Mods();
 
         try {
@@ -98,6 +130,8 @@
     });
 
     test('Circular dependency', function () {
+        expect(1);
+
         var modules = new Mods();
 
         modules.define('module1', function (require) {
@@ -120,6 +154,8 @@
     });
 
     test('Circular dependency - conditional case', function () {
+        expect(1);
+
         var modules = new Mods();
 
         modules.define('module1', function (require, exports) {
