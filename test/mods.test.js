@@ -1,25 +1,23 @@
 (function () {
     test('Deferred module loading', function () {
-        var modules = new Mods(),
-            m1Initialized = false,
-            m2Initialized = false,
-            m3Initialized = false;
+        var modules = new Mods();
 
         modules.define('module1', function (require, exports) {
-            exports.val = '$m1';
-            m1Initialized = true;
+            var m2 = require('module2'),
+                m3 = require('module3'),
+                m4 = require('module4');
+
+            exports.val = '$m1' + m2.val + m3 + m4.val;
         });
 
         modules.define('module2', function (require, exports) {
-            var m3 = require('module3');
-
-            exports.val = '$m2' + m3;
-            m2Initialized = true;
+            exports.val = '$m2';
         });
 
         modules.define('module3', function (require, exports) {
-            this.exports = '$m3';
-            m3Initialized = true;
+            var m2 = require('module2');
+
+            this.exports = '$m3' + m2.val;
         });
 
         modules.define('module4', {
@@ -28,20 +26,33 @@
 
         var m1 = modules.get('module1');
 
-        strictEqual(m1.val, '$m1');
-        ok(m1Initialized);
-        ok(!m2Initialized);
-        ok(!m3Initialized);
+        strictEqual(m1.val, '$m1$m2$m3$m2$m4');
 
         var m2 = modules.get('module2');
 
-        strictEqual(m2.val, '$m2$m3');
-        ok(m2Initialized);
-        ok(m3Initialized);
+        strictEqual(m2.val, '$m2');
 
         var m4 = modules.get('module4');
 
         strictEqual(m4.val, '$m4');
+    });
+
+    test('Exported function should be processed correctly', function () {
+        var modules = new Mods();
+
+        modules.define('Func', function () {
+            this.exports = function () {
+                return 'test';
+            };
+        });
+
+        //NOTE: first init
+        modules.get('Func');
+
+        //NOTE: get it second time - exported function shouldn't be used as a module constructor
+        var func = modules.get('Func');
+
+        strictEqual(func(), 'test');
     });
 
     test('Module should be loaded only once', function () {
@@ -71,19 +82,6 @@
         strictEqual(m2LoadCount, 1);
     });
 
-    test('Mock', function () {
-        var modules = new Mods();
-
-        modules.define('theAnswer', function () {
-            this.exports = null;
-        });
-
-        modules.mock('theAnswer', function () {
-            this.exports = '32';
-        });
-
-        strictEqual(modules.get('theAnswer'), '32');
-    });
 
     test('Module redefinition', function () {
         expect(1);
@@ -103,19 +101,6 @@
         }
     });
 
-    test('Mock undefined module', function () {
-        expect(1);
-
-        var modules = new Mods();
-
-        try {
-            modules.mock('nothing', function () {
-                this.exports = 'Hey ya';
-            });
-        } catch (err) {
-            strictEqual(err.message, 'Mods: mocked "nothing" is undefined')
-        }
-    });
 
     test('Required module is undefined', function () {
         expect(1);
