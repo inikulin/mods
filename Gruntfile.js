@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         // Metadata.
         pkg: grunt.file.readJSON('package.json'),
 
-        banner: '/*\n' +
+        banner: '/*!\n' +
                 ' <%= pkg.name %> v<%= pkg.version %> \n' +
                 ' Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> (<%= pkg.author.email %>, <%= pkg.author.site %>)\n' +
                 ' Released under the MIT license\n ' +

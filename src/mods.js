@@ -1,8 +1,3 @@
-/*
- mods v0.1.0 
- Copyright (c) 2013 Ivan Nikulin (ifaaan@gmail.com, https://github.com/inikulin)
- Released under the MIT license
- */
 //NOTE: declare Mods without a 'var', so it will be placed inside global object.
 //Just a 'bad practice'-way to say 'window.Mods = ...'
 Mods = function () {

@@ -1,4 +1,4 @@
-/*
+/*!
  mods v0.1.0 
  Copyright (c) 2013 Ivan Nikulin (ifaaan@gmail.com, https://github.com/inikulin)
  Released under the MIT license
