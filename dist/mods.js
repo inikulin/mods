@@ -15,9 +15,9 @@ Mods = function () {
         modules = {};
 
 
-    //NOTE: error emitter. Just throw exception with message prefixed with 'Mods: '
+    //NOTE: error emitter. Just throw error string prefixed with 'Mods: '
     function err(msg) {
-        throw Error('Mods: ' + msg);
+        throw 'Mods: ' + msg;
     }
 
     //NOTE: this is there all magic is happening, this function is a factory-method for the 'require'-functions.

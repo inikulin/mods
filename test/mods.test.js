@@ -97,7 +97,7 @@
                 this.exports = null;
             });
         } catch (err) {
-            strictEqual(err.message, 'Mods: "theAnswer" is already defined');
+            strictEqual(err, 'Mods: "theAnswer" is already defined');
         }
     });
 
@@ -110,7 +110,7 @@
         try {
             modules.get('someModule');
         } catch (err) {
-            strictEqual(err.message, 'Mods: required "someModule" is undefined');
+            strictEqual(err, 'Mods: required "someModule" is undefined');
         }
     });
 
@@ -134,7 +134,7 @@
         try {
             modules.get('module1');
         } catch (err) {
-            strictEqual(err.message, 'Mods: circular dependency: "module1" -> "module2" -> "module3" -> "module1"');
+            strictEqual(err, 'Mods: circular dependency: "module1" -> "module2" -> "module3" -> "module1"');
         }
     });
 
@@ -158,7 +158,7 @@
         try {
             m1.oops();
         } catch (err) {
-            strictEqual(err.message, 'Mods: circular dependency: "module1" -> "module2" -> "module1"');
+            strictEqual(err, 'Mods: circular dependency: "module1" -> "module2" -> "module1"');
         }
     });
 
