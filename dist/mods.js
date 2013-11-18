@@ -11,7 +11,7 @@ Mods = function () {
     //---------------------------------------------------------------------------
     var EXPORTS_PROP = 'exports',
         FUNC_TYPE = 'function',
-        FUNC_AS_EXPORTS_FLAG = '%%%F%%%',
+        FUNC_AS_EXPORTS_FLAG = '%E%',
         modules = {};
 
 
