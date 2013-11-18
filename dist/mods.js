@@ -9,8 +9,9 @@ Mods = function () {
 
     //Internals
     //---------------------------------------------------------------------------
-    var exportsPropName = 'exports', //NOTE: store 'exports' property name, so all it's code occurrences can be minified
-        funcAsExportsFlag = '%%%F%%%',
+    var EXPORTS_PROP = 'exports',
+        FUNC_TYPE = 'function',
+        FUNC_AS_EXPORTS_FLAG = '%%%F%%%',
         modules = {};
 
 
@@ -26,7 +27,7 @@ Mods = function () {
     function createRequireFunc(stack) {
         //NOTE: newly created function has a closure on a 'stack' parameter.
         //'stack' parameter contains call chain of the module initializers which lead to the current module
-        //initialization. So all required modules within current module will have the same call chain.
+        //initialization.
         return function (id) {
             var mod = modules[id],
                 circularDependencyErr,
@@ -49,25 +50,26 @@ Mods = function () {
                     circularDependencyErr += '"' + stack[i] + '" -> ';
             }
 
+            //NOTE: finally, if we have error append required module id to the error message, then fail
             if (circularDependencyErr)
                 err(circularDependencyErr + '"' + id + '"');
 
             //NOTE: module is not initialized yet
-            if (typeof mod == 'function' && !mod[funcAsExportsFlag]) {
+            if (typeof mod == FUNC_TYPE && !mod[FUNC_AS_EXPORTS_FLAG]) {
                 //NOTE: initialize 'exports' object, reuse 'mod' variable as a host for this object
-                mod[exportsPropName] = {};
+                mod[EXPORTS_PROP] = {};
 
-                //NOTE: copy stack push and current module to the copy, so new require function will contain current module.
-                //Untialize module, with new require function and pass 'mod' as a context, so
+                //NOTE: copy stack and required module to the copy, so new require function will contain current module.
+                //Initialize module with new require function and pass 'mod' as a context, so
                 //'exports' object can be accessed both via 'exports' parameter and via 'this.exports'.
-                mod.call(mod, createRequireFunc(stack.concat(id)), mod[exportsPropName]);
+                mod.call(mod, createRequireFunc(stack.concat(id)), mod[EXPORTS_PROP]);
 
                 //NOTE: save 'exports' as a module
-                mod = modules[id] = mod[exportsPropName];
+                mod = modules[id] = mod[EXPORTS_PROP];
 
                 //NOTE: if we have function as exports - mark it with special flag to avoid re-init
-                if (typeof mod == 'function')
-                    mod[funcAsExportsFlag] = funcAsExportsFlag;
+                if (typeof mod == FUNC_TYPE)
+                    mod[FUNC_AS_EXPORTS_FLAG] = FUNC_AS_EXPORTS_FLAG;
             }
 
             return mod;
@@ -85,8 +87,7 @@ Mods = function () {
             modules[id] = mod;
         },
 
-        get: function (id) {
-            return createRequireFunc([])(id);
-        }
+        //NOTE: 'get' is just require function with empty call stack
+        get: createRequireFunc([])
     };
 };
