@@ -7,4 +7,4 @@ npm install
 grunt
 ```
 
-Then just run `index.js`
+Then just open `index.js` in your favorite browser.
