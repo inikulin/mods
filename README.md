@@ -73,14 +73,16 @@ MyApp.define('Greetings.Settings', function() {
 
 //Use function as exports
 //----------------------------------------------------------
-MyApp.define('Greetings.Printer.DOM', function(require) {
+MyApp.define('Greetings.Printer.DOM', function (require) {
     var $ = require('jQuery');
-    
-    this.exports = function(text, color) {
-        $('<div>')
-            .text(text)
-            .css({color: 'red'})
-            .appendTo('body');
+
+    this.exports = function (text, color) {
+        $(document).ready(function () {
+            $('<div>')
+                .text(text)
+                .css({color: 'red'})
+                .appendTo('body');
+        });
     };
 });
 
@@ -94,15 +96,15 @@ MyApp.define('Greetings.Printer.Console', function(require) {
 
 //Extend exports object (like in Node.js)
 //----------------------------------------------------------
-MyApp.define('Greetings', function(require, exports) {
+MyApp.define('Main', function(require, exports) {
     var Settings = require('Greetings.Settings'),
         printToDOM = require('Greetings.Printer.DOM'),
         printToConsole = require('Greetings.Printer.Console');
-        
+
     exports.helloToDOM = function(){
         printToDOM(Settings.text, Settings.color);
     };
-    
+
     exports.helloToConsole = function(){
         printToConsole(Settings.text);
     };
@@ -111,10 +113,10 @@ MyApp.define('Greetings', function(require, exports) {
 
 ### 4. Use your app/module container
 ```js
-var Greetings = MyApp.get('Greetings');
+var Main = MyApp.get('Main');
 
-Greetings.helloToDOM();
-Greetings.helloToConsole();
+Main.helloToDOM();
+Main.helloToConsole();
 ```
 
 By the way, it can handle issues in your code

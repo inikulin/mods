@@ -1,0 +1,19 @@
+{
+    "name": "ModsExample",
+    "version": "0.1.0",
+    "site": "https://github.com/inikulin/mods",
+    "author": {
+        "name": "Ivan Nikulin",
+        "email": "ifaaan@gmail.com",
+        "site": "https://github.com/inikulin"
+    },
+    "engines": {
+        "node": ">= 0.8.0"
+    },
+    "devDependencies": {
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-contrib-uglify": "~0.2.0",
+        "grunt-contrib-clean": "~0.4.0",
+        "grunt": "~0.4.1"
+    }
+}
