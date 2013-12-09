@@ -94,7 +94,7 @@ MyApp.define('Greetings.Printer.DOM', function(require) {
     this.exports = function(text, color) {
         $('<div>')
             .text(text)
-            .css({color: 'red'})
+            .css({color: color})
             .appendTo('body');
     };
 });
