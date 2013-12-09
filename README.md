@@ -2,6 +2,9 @@ mods![mods](https://raw.github.com/inikulin/mods/master/logo.jpg)
 ====
 Nice [Asynchronous Module Definition (AMD)](https://github.com/amdjs/amdjs-api/wiki/AMD) library in just [470 bytes of minified code](https://github.com/inikulin/mods/blob/master/dist/mods.min.js).
 
+* [Download compressed, production version](https://raw.github.com/inikulin/mods/master/dist/mods.min.js)
+* [Download uncompressed, annotated development version](https://raw.github.com/inikulin/mods/master/dist/mods.js)
+
 What?
 ====
 Nowadays building any non-trivial JavaScript application  requires a significant amount of code to be written. Historically JavaScript doesn't have any modular system, which allows you to split your code in modules, separate files and control their dependencies. Moreover big applications doesn't need to initialize all it's subsystems on start. This is there lazy loading of submodules (which is AMD actually is) comes to help. There are a lot great libraries that provide AMD functionality ([RequireJS](http://requirejs.org/) is the most notable). However, I felt constant frustration with their complexity and strange design decissions. I feel that things are not [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and my code is not narrative then I'm writing things like this in RequireJS:
