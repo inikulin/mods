@@ -5,7 +5,7 @@ MyApp.define('Greetings.Printer.DOM', function (require) {
         $(document).ready(function () {
             $('<div>')
                 .text(text)
-                .css({color: 'red'})
+                .css({color: color})
                 .appendTo('body');
         });
     };
