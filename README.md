@@ -76,7 +76,7 @@ MyApp.define('async', function() {
 ### 3. Define your modules
 ```js
 
-//Use object as exports
+//Use objects as exports...
 //---------------------------------------------------------
 MyApp.define('Greetings.Settings', function() {
     this.exports = {
@@ -86,7 +86,7 @@ MyApp.define('Greetings.Settings', function() {
 });
 
 
-//Use function as exports
+//...or use functions as exports...
 //----------------------------------------------------------
 MyApp.define('Greetings.Printer.DOM', function(require) {
     var $ = require('jQuery');
@@ -107,7 +107,7 @@ MyApp.define('Greetings.Printer.Console', function(require) {
 });
 
 
-//Extend exports object (like in Node.js)
+//...or just extend exports object (like in node.js)
 //----------------------------------------------------------
 MyApp.define('Main', function(require, exports) {
     var Settings = require('Greetings.Settings'),
