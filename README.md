@@ -47,7 +47,7 @@ With such approach, usage of the RequireJS may become [really painful](https://g
 So if you want
 
 * nice, modular and narrative code
-* filesystem/url-agnostic AMD library with nice error handling
+* filesystem/URL-agnostic AMD library with nice error handling
 * concat all your scripts (without taking care of their order/filesystem path) into a single file
 
 then `mods` is your choice.
@@ -128,6 +128,12 @@ var Main = MyApp.get('Main');
 Main.helloToDOM();
 Main.helloToConsole();
 ```
+
+
+I need an example project
+====
+[We have one](https://github.com/inikulin/mods/tree/master/example).
+As you can see it mimics superb app from `Usage` section.
 
 By the way, it can handle issues in your code
 ====
