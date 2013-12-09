@@ -1,6 +1,9 @@
-![mods](https://raw.github.com/inikulin/mods/master/logo.jpg)mods
+mods![mods](https://raw.github.com/inikulin/mods/master/logo.jpg)
 ====
 Nice [Asynchronous Module Definition (AMD)](https://github.com/amdjs/amdjs-api/wiki/AMD) library in just [470 bytes of minified code](https://github.com/inikulin/mods/blob/master/dist/mods.min.js).
+
+* [Download compressed, production version](https://raw.github.com/inikulin/mods/master/dist/mods.min.js)
+* [Download uncompressed, annotated development version](https://raw.github.com/inikulin/mods/master/dist/mods.js)
 
 What?
 ====
