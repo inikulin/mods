@@ -154,7 +154,7 @@ var Module1 = MyApp.get('Module1');
 ``` 
 
 You will get an error from `mods` in your console:
-`Mods: circular dependency: "Module1 -> Module2 -> Module1"`
+`Mods: circular dependency: "Module1" -> "Module2" -> "Module1"`
 
 ###If you load a module that is not defined:
 
