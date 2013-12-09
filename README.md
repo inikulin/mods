@@ -1,16 +1,19 @@
-mods![mods](https://raw.github.com/inikulin/mods/master/logo.jpg)
+![mods](https://raw.github.com/inikulin/mods/master/logo.jpg)mods
 ====
 Nice [Asynchronous Module Definition (AMD)](https://github.com/amdjs/amdjs-api/wiki/AMD) library in just [470 bytes of minified code](https://github.com/inikulin/mods/blob/master/dist/mods.min.js).
 
-* [Download compressed, production version](https://raw.github.com/inikulin/mods/master/dist/mods.min.js)
-* [Download uncompressed, annotated development version](https://raw.github.com/inikulin/mods/master/dist/mods.js)
-
 What?
 ====
-Nowadays building any non-trivial JavaScript application  requires a significant amount of code to be written. Historically JavaScript doesn't have any modular system, which allows you to split your code in modules, separate files and control their dependencies. Moreover big applications doesn't need to initialize all it's subsystems on start. This is there lazy loading of submodules (which is AMD actually is) comes to help. There are a lot great libraries that provide AMD functionality ([RequireJS](http://requirejs.org/) is the most notable). However, I felt constant frustration with their complexity and strange design decissions. I feel that things are not [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and my code is not narrative then I'm writing things like this in RequireJS:
+Nowadays building any non-trivial JavaScript application  requires a significant amount of code. Historically JavaScript
+doesn't have any modular system, which allows you to split your code in modules, separate files and control their dependencies.
+Moreover a big application doesn't need to initialize all its subsystems on start. Here a lazy loading of
+submodules (which is actually AMD) comes to help. There are a lot of great libraries that provide AMD functionality
+([RequireJS](http://requirejs.org/) is the most notable). However, I feel a constant frustration with their complexity
+and strange design decisions. I feel that things are not [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and
+my code is not narrative when I'm writing things like this in RequireJS:
 ```js
 requirejs(['jquery', 'canvas', 'app/sub'], function   ($, canvas, sub) {
-    //jQuery, canvas and the app/sub module are all loaded and can be used here now.
+    //jQuery, canvas and the app/sub module are loaded and can be used here now.
     
     return {
         helloWorld: function() {
@@ -33,15 +36,21 @@ MyApp.define('Main', function(require, exports) {
 });
 ```
 
-Another issue with RequireJs is that modules structure mimics filesystem structure. So rebasing single file may become a
+Another issue of RequireJs is that a module structure mimics a filesystem structure. So rebasing a single file may become a
 significant pain in the ass. 
-The most common process of building your scripts (e.g. with [grunt](http://gruntjs.com/) is):
-* Concat all JS files in the given directory
-* Uglify resulting file into a single runtime
+The most common process of building your scripts (e.g. with [grunt](http://gruntjs.com/)) is:
+* Concat all JS files in the given directory into a single file, which is used at run time
+* Minify this file
 
-With such approach usage of the RequireJS may become [really painful](https://github.com/yeoman/grunt-usemin/issues/192).
+With such approach, usage of the RequireJS may become [really painful](https://github.com/yeoman/grunt-usemin/issues/192).
 
-So if you want nice, modular and narrative code, filesystem/url-agnostic AMD library with nice error handling and you want to concat all your scripts (without taking care of their order/filesystem path) into a single file then `mods` is your choise.
+So if you want
+
+* nice, modular and narrative code
+* filesystem/url-agnostic AMD library with nice error handling
+* concat all your scripts (without taking care of their order/filesystem path) into a single file
+
+then `mods` is your choice.
 
 Usage
 ====
@@ -76,16 +85,14 @@ MyApp.define('Greetings.Settings', function() {
 
 //Use function as exports
 //----------------------------------------------------------
-MyApp.define('Greetings.Printer.DOM', function (require) {
+MyApp.define('Greetings.Printer.DOM', function(require) {
     var $ = require('jQuery');
-
-    this.exports = function (text, color) {
-        $(document).ready(function () {
-            $('<div>')
-                .text(text)
-                .css({color: 'red'})
-                .appendTo('body');
-        });
+    
+    this.exports = function(text, color) {
+        $('<div>')
+            .text(text)
+            .css({color: 'red'})
+            .appendTo('body');
     };
 });
 
@@ -140,10 +147,10 @@ MyApp.define('Module2', function(){
 var Module1 = MyApp.get('Module1');
 ``` 
 
-You will get error from `mods` in your console:
+You will get an error from `mods` in your console:
 `Mods: circular dependency: "Module1 -> Module2 -> Module1"`
 
-###If you load module which is not defined:
+###If you load a module that is not defined:
 
 ```js 
 var MyApp = new Mods();
@@ -157,7 +164,7 @@ MyApp.define('Main', function(require){
 var dummy = MyApp.get('MyUndefinedModule'); 
 ``` 
 
-You will get error from `mods` in your console:
+You will get an error from `mods` in your console:
 `Mods: required "MyUndefinedModule" is undefined`
 
 ###If you redefine already defined module:
@@ -172,7 +179,7 @@ MyApp.define('Main', function(){
 });
 ``` 
 
-You will get error from `mods` in your console:
+You will get an error from `mods` in your console:
 `Mods: "Main" is already defined`
 
 Questions or suggestions?
