@@ -42,7 +42,7 @@ The most common process of building your scripts (e.g. with [grunt](http://grunt
 * Concat all JS files in the given directory into a single file, which is used at run time
 * Minify this file
 
-With such approach, usage of the RequireJS may become [really painful](https://github.com/yeoman/grunt-usemin/issues/192).
+With such approach, usage of the RequireJS may become really painful.
 
 So if you want
 
