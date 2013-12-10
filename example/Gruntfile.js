@@ -20,10 +20,6 @@ module.exports = function (grunt) {
                 src: 'app/app.js',
                 dest: 'app/app.js'
             }
-        },
-
-        qunit: {
-            files: ['test/**/*.html']
         }
     });
 
