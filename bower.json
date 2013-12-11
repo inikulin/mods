@@ -1,0 +1,30 @@
+{
+    "name": "mods",
+    "version": "0.4.2",
+    "description": "Ultra small modular Javascript library with lazy module initialization, error handling(including circular dependencies) and nice API",
+    "main": "mods.min.js",
+    "keywords": [
+        "module",
+        "modules",
+        "modular",
+        "AMD",
+        "CommonJS"
+    ],
+    "authors": [
+        "Ivan Nikulin (ifaaan@gmail.com)"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/inikulin/mods",
+    "ignore": [
+        "**/.*",
+        "libs",
+        "src",
+        "example",
+        "node_modules",
+        "test",
+        "tests",
+        "Gruntfile.js",
+        "package.json",
+        "bower.json"
+    ]
+}
