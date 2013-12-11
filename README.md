@@ -28,7 +28,7 @@ requirejs(['jquery', 'canvas', 'app/sub'], function   ($, canvas, sub) {
 
 This design is dictated by the fact, that RequireJS should load dependencies from server before module initialization. But in most cases I have the only one good-old concatinated script file. 
 
-This is how I want it to be done in my code:
+So, this is how I want it to be done in my code:
 ```js
 MyApp.define('Main', function(require, exports) {
     var $ = require('jquery'),
@@ -49,7 +49,7 @@ The most common process of building your scripts (e.g. with [grunt](http://grunt
 
 With such approach, usage of the RequireJS may become really painful.
 
-So if you want
+So, if you want
 
 * nice, modular and narrative code
 * filesystem/URL-agnostic AMD library with nice error handling
