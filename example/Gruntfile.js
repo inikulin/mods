@@ -7,7 +7,7 @@ module.exports = function (grunt) {
         concat: {
             dist: {
                 src: [
-                    '../dist/mods.min.js',
+                    '../mods.min.js',
                     'src/intro.js',
                     'src/**/*.js'
                 ],

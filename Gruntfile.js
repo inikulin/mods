@@ -12,7 +12,10 @@ module.exports = function (grunt) {
 
         // Task configuration.
         clean: {
-            files: ['dist']
+            files: [
+                '<%= pkg.name %>.js',
+                '<%= pkg.name %>.min.js'
+            ]
         },
 
         concat: {
@@ -22,14 +25,14 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: ['src/<%= pkg.name %>.js'],
-                dest: 'dist/<%= pkg.name %>.js'
+                dest: '<%= pkg.name %>.js'
             }
         },
 
         uglify: {
             dist: {
                 src: '<%= concat.dist.dest %>',
-                dest: 'dist/<%= pkg.name %>.min.js'
+                dest: '<%= pkg.name %>.min.js'
             }
         },
 
