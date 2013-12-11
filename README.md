@@ -26,6 +26,8 @@ requirejs(['jquery', 'canvas', 'app/sub'], function   ($, canvas, sub) {
 });
 ```
 
+This design is dictated by the fact, that RequireJS should load dependencies from server before module initialization. But in most cases I have the only one good-old concatinated script file. 
+
 This is how I want it to be done in my code:
 ```js
 MyApp.define('Main', function(require, exports) {
@@ -39,7 +41,6 @@ MyApp.define('Main', function(require, exports) {
 });
 ```
 
-This design fails for me because in most cases I don't need to lazy-load module-scripts from server. I have the only one good-old concatinated script file.
 
 Another issue of RequireJs/CommonJs is that a module structure mimics a filesystem structure. So rebasing a single file may become a significant pain in the ass. 
 The most common process of building your scripts (e.g. with [grunt](http://gruntjs.com/)) is:
