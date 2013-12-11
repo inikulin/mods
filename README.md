@@ -5,6 +5,11 @@ Nice [modular Javascript](http://addyosmani.com/writing-modular-js/) library in 
 * [Download compressed, production version](https://raw.github.com/inikulin/mods/master/mods.min.js)
 * [Download uncompressed, annotated, development version](https://raw.github.com/inikulin/mods/master/mods.js)
 
+or
+
+* Install with [bower](http://bower.io/):
+ `$ bower install mods`
+
 What?
 ====
 Nowadays building any non-trivial JavaScript application  requires a significant amount of code. Historically JavaScript
