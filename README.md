@@ -139,6 +139,33 @@ Main.helloToDOM();
 Main.helloToConsole();
 ```
 
+Hm, but I want backward compatibility with RequireJS/CommonJS!
+====
+Ok. In your startup code do this:
+```js
+var MyApp = new Mods();
+
+window.define = function(name, mod) {
+    MyApp.define(name, mod);
+};
+```
+so you can turn this:
+```js
+MyApp.define('i.am.rock', function(require, exports) {
+   var app = require('app');
+   
+   exports.awesomeness = 'My ' + app.name;
+});
+```
+
+into this:
+```js
+define('i.am.rock', function(require, exports) {
+   var app = require('app');
+   
+   exports.awesomeness = 'My ' + app.name;
+});
+```
 
 I need an example project
 ====
