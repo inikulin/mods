@@ -141,7 +141,7 @@ Main.helloToConsole();
 
 Hm, but I want backward compatibility with RequireJS/CommonJS!
 ====
-Ok. In your startup code do this:
+Ok. In your startup code do this
 ```js
 var MyApp = new Mods();
 
@@ -149,7 +149,7 @@ window.define = function(name, mod) {
     MyApp.define(name, mod);
 };
 ```
-so you can turn this:
+so you can turn this
 ```js
 MyApp.define('i.am.rock', function(require, exports) {
    var app = require('app');
@@ -158,7 +158,7 @@ MyApp.define('i.am.rock', function(require, exports) {
 });
 ```
 
-into this:
+into this
 ```js
 define('i.am.rock', function(require, exports) {
    var app = require('app');
