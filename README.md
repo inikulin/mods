@@ -1,6 +1,6 @@
 ![mods](https://raw.github.com/inikulin/mods/master/logo.jpg)mods
 ====
-Nice [modular Javascript](http://addyosmani.com/writing-modular-js/) library in just [470 bytes of minified code](https://github.com/inikulin/mods/blob/master/dist/mods.min.js).
+Nice [modular Javascript](http://addyosmani.com/writing-modular-js/) library in just [470 bytes of minified code](https://github.com/inikulin/mods/blob/master/mods.min.js).
 
 * [Download compressed, production version](https://raw.github.com/inikulin/mods/master/mods.min.js)
 * [Download uncompressed, annotated, development version](https://raw.github.com/inikulin/mods/master/mods.js)
